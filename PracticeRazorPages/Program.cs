@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using PracticeRazorPages.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,7 +6,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-builder.Services.AddDbContext<MyDbContext>();
+//builder.Services.AddDbContext<MyDbContext>();
+builder.Services.AddDbContext<BloggieDbContext>(options=>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("RazorPageDemoConnString")
+    )
+);
+
 
 var app = builder.Build();
 
